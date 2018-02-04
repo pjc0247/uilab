@@ -1,0 +1,25 @@
+@bg_color: #FFFFFF;
+
+#Background {
+    color: @bg_color;
+}
+
+// Texts
+#Texts .bold {
+    font-style: bold;    
+}
+#Texts .left-align {
+    text-align: left;
+}
+#Texts .right-top-align {
+    text-align: right top; 
+}
+#Texts .shadow {
+    shadow: 2 -2 blue;
+}
+#Texts .outline {
+    outline: red;
+}
+#Texts .font-size {
+    font-size: 42;
+}
