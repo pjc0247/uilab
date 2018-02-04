@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BlurMat
-  m_Shader: {fileID: 4800000, guid: 22514f0fb01570d4480b1561996392c0, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_Name: Panel_BlurLayer
+  m_Shader: {fileID: 4800000, guid: 57155bae4c3fd364f9e7ff54c0bb1dbe, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA REPROCESS_ON _EMISSION _REPROCESSHOR_ON _WOLDSPACE_ON
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -18,10 +18,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BumpMap:
+    - _AlphaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: ebdbb6a9a3cd4426aa960e1141b4b4b7, type: 3}
+        m_Scale: {x: -1.56, y: 8.09}
+        m_Offset: {x: -0.26, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -42,6 +46,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -54,33 +62,63 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _StoreTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlurSize: 20
+    - Reprocess: 1
+    - _AlphaAsBlurSize: 0
+    - _BlurSize: 22
+    - _BumpAmt: 128
     - _BumpScale: 1
-    - _Cutoff: 0.5
+    - _ColorMask: 357.3
+    - _Cutoff: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Lightness: 0
+    - _LightAdj: 0
+    - _Lightness: 0.09
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _PanelHeight: 0
-    - _PanelWidth: 0
-    - _PanelX: 0
-    - _PanelY: 0
+    - _PanelHeight: 337
+    - _PanelWidth: 149.75
+    - _PanelX: 74.874985
+    - _PanelY: 168.5
     - _Parallax: 0.02
+    - _Q0: 0
+    - _Q1: 0
+    - _Q2: 0
+    - _Q3: 0
+    - _Q4: 15.2
     - _Quality: 3
-    - _ScreenHeight: 0
-    - _ScreenWidth: 0
+    - _RenderBlurTex: -1
+    - _Reprocess: 1
+    - _ReprocessHor: 1
+    - _ScreenHeight: 337
+    - _ScreenWidth: 599
+    - _Size: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _UVSec: 0
+    - _WoldSpace: 1
     - _WorldSpace: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OC: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

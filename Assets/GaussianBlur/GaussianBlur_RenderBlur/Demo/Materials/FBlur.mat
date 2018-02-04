@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BlurMat
-  m_Shader: {fileID: 4800000, guid: 22514f0fb01570d4480b1561996392c0, type: 3}
+  m_Name: FBlur
+  m_Shader: {fileID: 4800000, guid: 6d6b33fbd55b8b943ba8c64c9eafb89f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -55,7 +55,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlurSize: 20
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -63,24 +62,15 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Lightness: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _PanelHeight: 0
-    - _PanelWidth: 0
-    - _PanelX: 0
-    - _PanelY: 0
     - _Parallax: 0.02
-    - _Quality: 3
-    - _ScreenHeight: 0
-    - _ScreenWidth: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WorldSpace: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

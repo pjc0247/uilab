@@ -46,7 +46,7 @@ public class Highlighter : MonoBehaviour
             UssStyleModifier.Apply(
                 UssRoot.FindRootInScene().gameObject, styles.styles);
 
-            errorMessage.CrossFadeColor(Color.black, 0.5f, true, true);
+            errorMessage.CrossFadeColor(Color.white, 0.5f, true, true);
             errorMessage.text = "SUCCESS";
         }
         catch (Exception e)
