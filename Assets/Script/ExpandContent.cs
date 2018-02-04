@@ -37,6 +37,8 @@ public class ExpandContent : MonoBehaviour
         StartCoroutine(ExpandScaleFunc());
 
         SendMessage("OnExpandContent");
+        foreach (var g in GetComponentsInChildren<Content>())
+            g.SendMessage("OnExpandContent");
     }
     public void OnShrink()
     {
@@ -45,6 +47,8 @@ public class ExpandContent : MonoBehaviour
         StartCoroutine(ShrinkFunc());
 
         SendMessage("OnShrinkContent");
+        foreach (var g in GetComponentsInChildren<Content>())
+            g.SendMessage("OnShrinkContent");
     }
 
     void Update()
