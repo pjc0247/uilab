@@ -9,11 +9,19 @@
       var gameInstance = UnityLoader.instantiate("gameContainer", "Build/pf2.json");
     </script>
   </head>
-  <body>
-    <div id="gameContainer" style="width: 100%; margin: auto"></div>
+  <body style="margin:0;background:black">
+    <div id="gameContainer" style="margin:auto !important;"></div>
   </body>
 </html>
 <script>
   var canvas = document.getElementById("gameContainer");
-  canvas.style.height = canvas.style.width / 16 * 9;
+  var body = document.body,
+      html = document.documentElement;
+
+  var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+  canvas.style.width = (height / 9) * 16 + "px";
+  canvas.style.height = (height) + "px";
+  canvas.style.left = "calc(50% - " + ((height / 9) * 8) + "px)";
 </script>

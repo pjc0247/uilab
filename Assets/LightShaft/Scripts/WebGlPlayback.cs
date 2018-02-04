@@ -7,7 +7,7 @@ using SimpleJSON;
 using System.Text;
 using System;
 
-public class WebGlPlayback : MonoBehaviour
+public class WebGlPlayback : Content
 {
     /*PRIVATE INFO DO NOT CHANGE THESE URLS OR VALUES*/
     private const string serverURI = "https://unity-dev-youtube.herokuapp.com/api/info?url=https://www.youtube.com/watch?v=";
@@ -39,6 +39,14 @@ public class WebGlPlayback : MonoBehaviour
         }
     }
 
+    public void OnExpandContent()
+    {
+        PlayYoutubeVideo(videoId);
+    }
+    public void OnShrinkContent()
+    {
+        unityVideoPlayer.Stop();
+    }
 
     public void PlayYoutubeVideo(string _videoId)
     {

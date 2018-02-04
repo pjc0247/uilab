@@ -1678,14 +1678,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 385928593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb60ff2b9496e9f409cc96167c0697bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f31cabdb9fdb4478770dd49b01550a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  webGlResults:
+    lowQuality: 
+    standardQuality: 
+    mediumQuality: 
+    hdQuality: 
+    fullHdQuality: 
+    ultraHdQuality: 
+    bestFormatWithAudioIncluded: 
+    audioUrl: 
   videoId: zMDgq21v6h4
-  useNewUnityPlayer: 1
   unityVideoPlayer: {fileID: 385928597}
   playOnStart: 0
-  youtubeLogo: {fileID: 0}
+  audioVplayer: {fileID: 385928597}
+  isSyncing: 0
+  syncIssue: 0
 --- !u!1 &401120645
 GameObject:
   m_ObjectHideFlags: 0
