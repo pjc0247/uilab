@@ -6,12 +6,16 @@ public class Nav : MonoBehaviour
 {
     public enum Scene
     {
+        Feed,
+        AppList,
         AppDetail
     }
 
     public static Nav instance;
 
+    public RectTransform feed;
     public RectTransform appDetail;
+    public RectTransform appList;
 
     void Awake()
     {
@@ -26,7 +30,28 @@ public class Nav : MonoBehaviour
     {
         Push(Scene.AppDetail);
     }
+    public void OnClickProfile()
+    {
+        Change(Scene.Feed);
+    }
+    public void OnClickUtilityProjects()
+    {
+        Change(Scene.AppList);
+    }
 
+    public void Change(Scene scene)
+    {
+        if (scene == Scene.AppList)
+        {
+            StartCoroutine(SlideToFunc(-1218, feed));
+            StartCoroutine(SlideToFunc(0, appList));
+        }
+        else if (scene == Scene.Feed)
+        {
+            StartCoroutine(SlideToFunc(0, feed));
+            StartCoroutine(SlideToFunc(1218, appList));
+        }
+    }
     public void Push(Scene scene)
     {
         StartCoroutine(SlideToFunc(0, appDetail));
