@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class ExpandContent : MonoBehaviour
 {
+    public enum ThumbnailType
+    {
+        WithWhiteArea,
+        WithAppIcon
+    }
+
+    public ThumbnailType thumbnailType;
+
     public Image headImage;
     public RectTransform content;
 
@@ -65,8 +73,11 @@ public class ExpandContent : MonoBehaviour
         {
             headImage.transform.localScale += (Vector3.one - headImage.transform.localScale) * 0.25f;
 
-            headImageCullLayer.sizeDelta += (new Vector2(headImageCullLayer.sizeDelta.x, 1000) - headImageCullLayer.sizeDelta) * 0.25f;
-            contentTopMargin.sizeDelta += (new Vector2(contentTopMargin.sizeDelta.x, 1000) - contentTopMargin.sizeDelta) * 0.25f;
+            if (thumbnailType == ThumbnailType.WithWhiteArea)
+            {
+                headImageCullLayer.sizeDelta += (new Vector2(headImageCullLayer.sizeDelta.x, 1000) - headImageCullLayer.sizeDelta) * 0.25f;
+                contentTopMargin.sizeDelta += (new Vector2(contentTopMargin.sizeDelta.x, 1000) - contentTopMargin.sizeDelta) * 0.25f;
+            }
 
             rt.anchoredPosition += (new Vector2(0, 160) - rt.anchoredPosition) * 0.25f;
             rt.sizeDelta += (new Vector2(rt.sizeDelta.x, 3000) - rt.sizeDelta) * 0.25f;
