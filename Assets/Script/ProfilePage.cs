@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ProfilePage : MonoBehaviour
 {
+    public Image scrollIndicator;
+
     public RectTransform devSpecs;
     public ScrollRect scroll;
 
@@ -35,6 +37,12 @@ public class ProfilePage : MonoBehaviour
         var y = scroll.content.anchoredPosition.y;
 
         Debug.Log(y);
+
+        foreach (var c in GetComponentsInChildren<ScrollReactive>())
+            c.SendMessage("OnScroll", y);
+
+        if (y <= 1050)
+            scrollIndicator.canvasRenderer.SetAlpha(1 - (y / 200));
         if (y <= 3350)
         {
             profileImage.anchoredPosition = originalProfileImagePosition - new Vector2(0, y/(1.0f));
@@ -48,8 +56,8 @@ public class ProfilePage : MonoBehaviour
             }
             else
             {
-                p.Key.anchoredPosition = devSpecsOriginalPositions[p.Key] * BounceOut(y / (3300 - p.Value));
-                p.Key.localScale = Vector2.one * BounceOut(y / (3300 - p.Value));
+                p.Key.anchoredPosition = devSpecsOriginalPositions[p.Key] * BounceOut((y - p.Value) / (3300 - p.Value));
+                p.Key.localScale = Vector3.one * BounceOut((y - p.Value) / (3300 - p.Value));
             }
         }
     }
