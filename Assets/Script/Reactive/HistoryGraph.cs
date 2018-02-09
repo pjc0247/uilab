@@ -23,7 +23,7 @@ public class HistoryGraph : ScrollReactive
     }
     public void OnScroll(int y)
     {
-        if (y <= 4500) return;
+        if (y <= 4000) return;
         var dy = y - 4500;
 
         graphBar.sizeDelta = new Vector2(graphBar.sizeDelta.x, Mathf.Clamp(dy * 1.3f, 0, barMaxHeight));

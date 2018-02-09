@@ -13,11 +13,13 @@ public class FadeIn : ScrollReactive
     void Awake()
     {
         originalScale = transform.localScale.x;
+
+        transform.localScale = Vector3.zero;
     }
 	public void OnScroll(int y)
     {
-        if (y <= targetY - 300) return;
-        if (y >= targetY + 300) return;
+        if (y <= targetY - 400) return;
+        if (y >= targetY + 400) return;
 
         var value = Mathf.Clamp(((float)y - targetY) / 300, 0, 1);
 
