@@ -8,7 +8,8 @@ public class Nav : MonoBehaviour
     {
         Feed,
         AppList,
-        AppDetail
+        AppDetail,
+        Profile
     }
 
     public static Nav instance;
@@ -16,6 +17,7 @@ public class Nav : MonoBehaviour
     public RectTransform feed;
     public RectTransform appDetail;
     public RectTransform appList;
+    public RectTransform profile;
 
     void Awake()
     {
@@ -26,13 +28,17 @@ public class Nav : MonoBehaviour
 		
 	}
 
+    public void OnClickFeed()
+    {
+        Change(Scene.Feed);
+    }
     public void OnClickGameProjects()
     {
         Push(Scene.AppDetail);
     }
     public void OnClickProfile()
     {
-        Change(Scene.Feed);
+        Change(Scene.Profile);
     }
     public void OnClickUtilityProjects()
     {
@@ -45,10 +51,18 @@ public class Nav : MonoBehaviour
         {
             StartCoroutine(SlideToFunc(-1218, feed));
             StartCoroutine(SlideToFunc(0, appList));
+            StartCoroutine(SlideToFunc(1218, profile));
         }
         else if (scene == Scene.Feed)
         {
             StartCoroutine(SlideToFunc(0, feed));
+            StartCoroutine(SlideToFunc(1218, appList));
+            StartCoroutine(SlideToFunc(1218, profile));
+        }
+        else if (scene == Scene.Profile)
+        {
+            StartCoroutine(SlideToFunc(0, profile));
+            StartCoroutine(SlideToFunc(1218, feed));
             StartCoroutine(SlideToFunc(1218, appList));
         }
     }
