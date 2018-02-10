@@ -10259,6 +10259,7 @@ GameObject:
   - component: {fileID: 1518723950}
   - component: {fileID: 1518723949}
   - component: {fileID: 1518723951}
+  - component: {fileID: 1518723952}
   m_Layer: 5
   m_Name: CorgiBox
   m_TagString: Untagged
@@ -10399,6 +10400,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 385928597}
   description: {fileID: 925858716}
+--- !u!114 &1518723952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1518723945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adcce3674a74fb042ac2fe4c96c26dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scroll: {fileID: 401120649}
 --- !u!1 &1522579227
 GameObject:
   m_ObjectHideFlags: 0
