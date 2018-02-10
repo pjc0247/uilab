@@ -41,6 +41,7 @@ public class ExpandContent : MonoBehaviour
     {
         expanded = true;
 
+        StopAllCoroutines();
         StartCoroutine(ExpandFunc());
         StartCoroutine(ExpandScaleFunc());
 
