@@ -41,7 +41,7 @@ public class SwipeToShrink : MonoBehaviour,
         while (true)
         {
             var ignorePhase = 5;
-
+                
             while (Input.GetMouseButton(0) == false)
                 yield return null;
             downPosition = Input.mousePosition;

@@ -52,6 +52,7 @@ public class ExpandContent : MonoBehaviour
     {
         expanded = false;
 
+        StopAllCoroutines();
         StartCoroutine(ShrinkFunc());
 
         SendMessage("OnShrinkContent");
