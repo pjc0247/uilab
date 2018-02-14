@@ -29,6 +29,9 @@ public class ExpandableCell : UiBase
 
     void OnClickCell()
     {
+        var cell = GetComponent<TableViewCell>();
+        cell.tableView.ScrollTo(cell.index);
+
         isExpanded ^= true;
         if (isExpanded) Expand();
         else Shrink();

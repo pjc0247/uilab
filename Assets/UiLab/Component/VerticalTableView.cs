@@ -52,6 +52,7 @@ public class VerticalTableView : UiBase,
             if (cell == null) cell = c.gameObject.AddComponent<TableViewCell>();
             cell.tableView = this;
             cell.index = i;
+            cell.offset = offset;
 
             offset -= (int)(cellHeight);
         }
@@ -76,6 +77,11 @@ public class VerticalTableView : UiBase,
         firstItemIndex++;
 
         return true;
+    }
+    public void ScrollTo(int index)
+    {
+        MoveTo(15, new Vector2(positionX, -GetCell(index).offset), Easing.ExpoOut);
+        firstItemIndex = index;
     }
 
     public TableViewCell GetCell(int index)

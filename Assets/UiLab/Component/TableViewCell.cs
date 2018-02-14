@@ -10,4 +10,5 @@ public class TableViewCell : UiBase
 {
     public VerticalTableView tableView;
     public int index;
+    public int offset;
 }
