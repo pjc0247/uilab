@@ -1270,6 +1270,7 @@ GameObject:
   - component: {fileID: 583681862}
   - component: {fileID: 583681861}
   - component: {fileID: 583681860}
+  - component: {fileID: 583681865}
   m_Layer: 5
   m_Name: Cell3
   m_TagString: Untagged
@@ -1369,6 +1370,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 583681858}
+--- !u!114 &583681865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583681858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd80d3437518d8d4697d5a72529b10a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rt: {fileID: 0}
+  graphic: {fileID: 0}
+  textureExpandScale: 2.5
+  mainTexture: {fileID: 35632337}
+  topDeco: {fileID: 1818562247}
 --- !u!1 &612207824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,8 +1659,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rt: {fileID: 0}
   graphic: {fileID: 0}
+  textureExpandScale: 1
   mainTexture: {fileID: 1211584212}
-  topDeco: {fileID: 0}
+  topDeco: {fileID: 679101601}
 --- !u!1 &732476875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,10 +1848,10 @@ RectTransform:
   m_Father: {fileID: 1437956349}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 640, y: 352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &839618622
 MonoBehaviour:
@@ -2930,6 +2948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rt: {fileID: 0}
   graphic: {fileID: 0}
+  textureExpandScale: 1
   mainTexture: {fileID: 612207825}
   topDeco: {fileID: 839618621}
 --- !u!1 &1485627861

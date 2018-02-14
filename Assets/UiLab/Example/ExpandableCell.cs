@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class ExpandableCell : UiBase
 {
+    public float textureExpandScale = 1;
+
     public RectTransform mainTexture;
     public RectTransform topDeco;
 
@@ -37,7 +39,7 @@ public class ExpandableCell : UiBase
         mainTextureKeepScale.enabled = false;
 
         MoveTo(topDeco, 20, new Vector2(-130, 300), Easing.BackOut);
-        ScaleTo(mainTexture, 20, Vector3.one, Easing.SineOut);
+        ScaleTo(mainTexture, 20, Vector3.one * textureExpandScale, Easing.BackOut);
         SizeTo(20, new Vector2(rt.sizeDelta.x, 1060), Easing.BackOut);
     }
     public void Shrink()

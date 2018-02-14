@@ -133,17 +133,14 @@ public class UiBase : MonoBehaviour
     }
     protected IEnumerator MoveToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        var origin = rt.anchoredPosition;
+        var origin = tr.anchoredPosition;
         var diff = target - origin;
 
         for (int i = 0; i <= frame; i++)
         {
             var t = 1.0f / frame * i;
-            Debug.Log(t);
 
             tr.anchoredPosition = origin + func(t) * diff;
-
-            
             yield return null;
         }
     }
@@ -158,7 +155,7 @@ public class UiBase : MonoBehaviour
     }
     protected IEnumerator SizeToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        var origin = rt.sizeDelta;
+        var origin = tr.sizeDelta;
         var diff = target - origin;
 
         for (int i = 0; i <= frame; i++)
@@ -179,7 +176,7 @@ public class UiBase : MonoBehaviour
     }
     protected IEnumerator ScaleToFunc(RectTransform tr, int frame, Vector3 target, Easing.EasingDelegate func)
     {
-        var origin = rt.localScale;
+        var origin = tr.localScale;
         var diff = target - origin;
 
         for (int i = 0; i <= frame; i++)
