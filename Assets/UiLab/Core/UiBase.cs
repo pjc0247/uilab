@@ -3,22 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(UiState))]
 public class UiBase : MonoBehaviour
 {
+    #region SHORTCUTS
+    public Vector2 position
+    {
+        get { return rt.anchoredPosition; }
+        set { rt.anchoredPosition = value; }
+    }
+    public float positionX
+    {
+        get { return rt.anchoredPosition.x; }
+        set { rt.anchoredPosition = new Vector2(value, rt.anchoredPosition.y); }
+    }
+    public float positionY
+    {
+        get { return rt.anchoredPosition.y; }
+        set { rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, value); }
+    }
+    public float rotation
+    {
+        get { return rt.localEulerAngles.z; }
+        set { rt.localEulerAngles = new Vector3(0, 0, value); }
+    }
+    public float scale
+    {
+        get { return rt.localEulerAngles.magnitude; }
+        set { rt.localEulerAngles = new Vector3(value, value, value); }
+    }
+    #endregion
+
+    protected UiState state;
     protected RectTransform rt;
     protected Graphic graphic;
 
     protected Vector2 originalPosition;
     protected Vector3 originalScale;
 
-    protected float alpha
+    private Material _uiMaterial;
+    protected Material uiMaterial
     {
-        get { return graphic.canvasRenderer.GetAlpha(); }
-        set { graphic.canvasRenderer.SetAlpha(value); }
+        get
+        {
+            if (graphic == null) return null;
+            if (_uiMaterial == null)
+                graphic.material = _uiMaterial = new Material(graphic.material);
+            return _uiMaterial;
+        }
     }
 
     protected virtual void Awake()
     {
+        state = GetComponent<UiState>();
         rt = GetComponent<RectTransform>();
         graphic = GetComponent<Graphic>();
 
@@ -30,16 +67,58 @@ public class UiBase : MonoBehaviour
 		
 	}
     
+    public bool IsPlaying(string key)
+    {
+        return state.IsPlaying(key);
+    }
+    public Coroutine StartAnimation(string key, IEnumerator coro)
+    {
+        return state.StartAnimation(key, coro);
+    }
+    public void StopAnimation(string key)
+    {
+        state.ForceStopAnimation(key);
+    }
+    public void StopAllAnimation()
+    {
+        state.ForceStopAllAnimations();
+    }
+    public Coroutine StartFadeAnimation(IEnumerator coro)
+    {
+        return StartAnimation("fade", coro);
+    }
+    public void StopFadeAnimation()
+    {
+        StopAnimation("fade");
+    }
+
     protected Vector2 GetCanvasSize()
     {
         return GetComponentInParent<CanvasScaler>().referenceResolution;
     }
 
-    protected void MoveTo(int frame, Vector2 target, Easing.EasingDelegate func)
+    public void PlayFadeIn()
     {
-        StartCoroutine(MoveToFunc(frame, target, func));
+        SendMessage("DoFadeIn", SendMessageOptions.DontRequireReceiver);
     }
-    protected IEnumerator MoveToFunc(int frame, Vector2 target, Easing.EasingDelegate func)
+    public void PlayFadeOut()
+    {
+        SendMessage("DoFadeOut", SendMessageOptions.DontRequireReceiver);
+    }
+    public void PlayHaptic()
+    {
+        SendMessage("DoHaptic", SendMessageOptions.DontRequireReceiver);
+    }
+
+    public void MoveTo(int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        StartCoroutine(MoveToFunc(rt, frame, target, func));
+    }
+    public void MoveTo(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        StartCoroutine(MoveToFunc(tr, frame, target, func));
+    }
+    protected IEnumerator MoveToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
         var origin = rt.anchoredPosition;
         var diff = target - origin;
@@ -47,12 +126,12 @@ public class UiBase : MonoBehaviour
         for (int i = 0; i <= frame; i++)
         {
             var t = 1.0f / frame * i;
-            rt.anchoredPosition = origin + func(t) * diff;
+            tr.anchoredPosition = origin + func(t) * diff;
             yield return null;
         }
     }
 
-    protected void ScaleTo(int frame, Vector3 target, Easing.EasingDelegate func)
+    public void ScaleTo(int frame, Vector3 target, Easing.EasingDelegate func)
     {
         StartCoroutine(ScaleToFunc(frame, target, func));
     }
@@ -69,7 +148,7 @@ public class UiBase : MonoBehaviour
         }
     }
 
-    protected void RotateTo(int frame, float angle, Easing.EasingDelegate func)
+    public void RotateTo(int frame, float angle, Easing.EasingDelegate func)
     {
         StartCoroutine(RotateToFunc(frame, angle, func));
     }

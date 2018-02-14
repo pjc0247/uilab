@@ -12,6 +12,10 @@ public class Easing
         return Mathf.Clamp(t, 0, 1);
     }
 
+    public static float Linear(float t)
+    {
+        return Flat(t);
+    }
     public static float Flat(float t)
     {
         t = Clamp(t);
