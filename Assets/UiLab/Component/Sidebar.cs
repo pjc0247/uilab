@@ -40,7 +40,6 @@ public class Sidebar : UiBase
         dimArea.SetAlpha(0);
     }
 
-    
     public void Show()
     {
         MoveTo(17, new Vector2(0, rt.anchoredPosition.y), Easing.BackOut);

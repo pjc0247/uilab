@@ -101,6 +101,7 @@ public class VerticalTableView : UiBase,
                 yield return null;
 
             TableViewCell cell = null;
+            var delta = Vector2.zero;
             var downPosition = Input.mousePosition;
             var originalTableViewY = positionY;
             var results = new List<RaycastResult>();
@@ -119,7 +120,7 @@ public class VerticalTableView : UiBase,
 
             while (isPointerEntered && Input.GetMouseButton(0))
             {
-                var delta = Input.mousePosition - downPosition;
+                delta = Input.mousePosition - downPosition;
 
                 if (delta.y < -10)
                     cell.rt.pivot = new Vector2(cell.rt.pivot.x, 1);
@@ -156,17 +157,22 @@ public class VerticalTableView : UiBase,
                 yield return null;
             }
 
-            if (cell.index != 0)
-            {
-                GetCell(cell.index - 1).ScaleTo(5, Vector3.one, Easing.SineOut);
-            }
-            if (cell.rt.pivot.y == 1)
-                yield return cell.ScaleTo(25, Vector3.one, Easing.SineOut);
+            if (Mathf.Abs(delta.magnitude) <= 10)
+                cell.gameObject.SendMessage("OnClickCell", SendMessageOptions.DontRequireReceiver);
             else
-                yield return cell.ScaleTo(5, Vector3.one, Easing.SineOut);
+            {
+                if (cell.index != 0)
+                {
+                    GetCell(cell.index - 1).ScaleTo(5, Vector3.one, Easing.SineOut);
+                }
+                if (cell.rt.pivot.y == 1)
+                    yield return cell.ScaleTo(25, Vector3.one, Easing.SineOut);
+                else
+                    yield return cell.ScaleTo(5, Vector3.one, Easing.SineOut);
 
-            while (isPointerEntered && Input.GetMouseButton(0))
-                yield return null;
+                while (isPointerEntered && Input.GetMouseButton(0))
+                    yield return null;
+            }
         }
     }
 }

@@ -40,6 +40,7 @@ public class UiBase : MonoBehaviour
 
     protected Vector2 originalPosition;
     protected Vector3 originalScale;
+    protected Vector2 originalSize;
 
     private GraphicRaycaster _raycaster;
     protected GraphicRaycaster raycaster
@@ -70,6 +71,7 @@ public class UiBase : MonoBehaviour
         rt = GetComponent<RectTransform>();
         graphic = GetComponent<Graphic>();
 
+        originalSize = rt.sizeDelta;
         originalPosition = rt.anchoredPosition;
         originalScale = rt.localScale;
     }
@@ -137,16 +139,45 @@ public class UiBase : MonoBehaviour
         for (int i = 0; i <= frame; i++)
         {
             var t = 1.0f / frame * i;
+            Debug.Log(t);
+
             tr.anchoredPosition = origin + func(t) * diff;
+
+            
+            yield return null;
+        }
+    }
+
+    public Coroutine SizeTo(int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        return StartCoroutine(SizeToFunc(rt, frame, target, func));
+    }
+    public Coroutine SizeTo(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        return StartCoroutine(SizeToFunc(tr, frame, target, func));
+    }
+    protected IEnumerator SizeToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        var origin = rt.sizeDelta;
+        var diff = target - origin;
+
+        for (int i = 0; i <= frame; i++)
+        {
+            var t = 1.0f / frame * i;
+            tr.sizeDelta = origin + func(t) * diff;
             yield return null;
         }
     }
 
     public Coroutine ScaleTo(int frame, Vector3 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(ScaleToFunc(frame, target, func));
+        return StartCoroutine(ScaleToFunc(rt, frame, target, func));
     }
-    protected IEnumerator ScaleToFunc(int frame, Vector3 target, Easing.EasingDelegate func)
+    public Coroutine ScaleTo(RectTransform tr, int frame, Vector3 target, Easing.EasingDelegate func)
+    {
+        return StartCoroutine(ScaleToFunc(tr, frame, target, func));
+    }
+    protected IEnumerator ScaleToFunc(RectTransform tr, int frame, Vector3 target, Easing.EasingDelegate func)
     {
         var origin = rt.localScale;
         var diff = target - origin;
@@ -154,7 +185,7 @@ public class UiBase : MonoBehaviour
         for (int i = 0; i <= frame; i++)
         {
             var t = 1.0f / frame * i;
-            rt.localScale = origin + func(t) * diff;
+            tr.localScale = origin + func(t) * diff;
             yield return null;
         }
     }
