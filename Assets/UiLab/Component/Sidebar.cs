@@ -9,6 +9,7 @@ public class Sidebar : UiBase
     public Color dim;
 
     public RectTransform dimArea;
+    public RectTransform contentToPull;
 
     protected override void Awake()
     {
@@ -18,8 +19,15 @@ public class Sidebar : UiBase
     }
     void Start ()
     {
-        Invoke("Show", 4);
 	}
+    void LateUpdate()
+    {
+        if (contentToPull == null) return;
+        if (IsPlaying("move") == false) return;
+
+        contentToPull.anchoredPosition = new Vector2(
+            (positionX + rt.rect.width) * rt.localScale.x, contentToPull.anchoredPosition.y);
+    }
     void OnValidate()
     {
         var rt = GetComponent<RectTransform>();
@@ -32,14 +40,17 @@ public class Sidebar : UiBase
         dimArea.SetAlpha(0);
     }
 
+    
     public void Show()
     {
-        MoveTo(9, new Vector2(0, rt.anchoredPosition.y), Easing.SineOut);
-        dimArea.AlphaTo(1, 0.05f);
+        MoveTo(17, new Vector2(0, rt.anchoredPosition.y), Easing.BackOut);
+        dimArea.AlphaTo(1, 0.12f);
+        dimArea.GetComponent<Image>().raycastTarget = true;
     }
     public void Hide()
     {
-        MoveTo(9, new Vector2(-width, rt.anchoredPosition.y), Easing.SineOut);
-        dimArea.AlphaTo(0, 0.05f);
+        MoveTo(17, new Vector2(-width, rt.anchoredPosition.y), Easing.BackIn);
+        dimArea.AlphaTo(0, 0.16f);
+        dimArea.GetComponent<Image>().raycastTarget = false;
     }
 }

@@ -123,11 +123,11 @@ public class UiBase : MonoBehaviour
 
     public Coroutine MoveTo(int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(MoveToFunc(rt, frame, target, func));
+        return StartAnimation("move", MoveToFunc(rt, frame, target, func));
     }
     public Coroutine MoveTo(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(MoveToFunc(tr, frame, target, func));
+        return StartAnimation("move", MoveToFunc(tr, frame, target, func));
     }
     protected IEnumerator MoveToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
