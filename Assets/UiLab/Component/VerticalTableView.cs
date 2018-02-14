@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 [ExecuteInEditMode]
 [DisallowMultipleComponent]
-public class VerticalTableView : UiBase
+public class VerticalTableView : UiBase,
+    IPointerEnterHandler, IPointerExitHandler
 {
-    public int firstItemIndex { get; private set; }
+    public int firstItemIndex;
+
+    private bool isPointerEntered = false;
+    private Coroutine scrollCoro;
 
 	void Start ()
     {
@@ -36,11 +43,15 @@ public class VerticalTableView : UiBase
                 cellHeight *= childRt.localScale.y;
             }
             else if (childRt.pivot.y == 0)
-                childRt.anchoredPosition = new Vector2(childRt.anchoredPosition.x, offset - cellHeight);
+            {
+                childRt.anchoredPosition = new Vector2(childRt.anchoredPosition.x, offset - cellHeight * childRt.localScale.y);
+                cellHeight *= childRt.localScale.y;
+            }
 
             var cell = c.GetComponent<TableViewCell>();
             if (cell == null) cell = c.gameObject.AddComponent<TableViewCell>();
             cell.tableView = this;
+            cell.index = i;
 
             offset -= (int)(cellHeight);
         }
@@ -65,5 +76,97 @@ public class VerticalTableView : UiBase
         firstItemIndex++;
 
         return true;
+    }
+
+    public TableViewCell GetCell(int index)
+    {
+        return transform.GetChild(index).GetComponent<TableViewCell>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isPointerEntered = true;
+
+        scrollCoro = StartCoroutine(ScrollFunc());
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerEntered = false;
+    }
+    IEnumerator ScrollFunc()
+    {
+        while (isPointerEntered)
+        {
+            while (isPointerEntered && Input.GetMouseButton(0) == false)
+                yield return null;
+
+            TableViewCell cell = null;
+            var downPosition = Input.mousePosition;
+            var originalTableViewY = positionY;
+            var results = new List<RaycastResult>();
+            raycaster.Raycast(new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            }, results);
+            foreach (var result in results)
+            {
+                var _cell = result.gameObject.GetComponent<TableViewCell>();
+                if (_cell == null) continue;
+                cell = _cell; break;
+            }
+
+            if (cell == null) continue;
+
+            while (isPointerEntered && Input.GetMouseButton(0))
+            {
+                var delta = Input.mousePosition - downPosition;
+
+                if (delta.y < -10)
+                    cell.rt.pivot = new Vector2(cell.rt.pivot.x, 1);
+                else if (delta.y > 10)
+                    cell.rt.pivot = new Vector2(cell.rt.pivot.x, 0);
+
+                if (delta.y > 300)
+                {
+                    if (ScrollDown())
+                    {
+                        //yield return new WaitForSeconds(1.0f / 60 * 11);
+                        cell.ScaleTo(5, Vector3.one, Easing.SineOut);
+                        break;
+                    }
+                    else break;
+                }
+                else if (delta.y < -300)
+                {
+                    if (ScrollUp())
+                    {
+                        //yield return new WaitForSeconds(1.0f / 60 * 11);
+                        cell.ScaleTo(5, Vector3.one, Easing.SineOut);
+                        break;
+                    }
+                    else break;
+                }
+
+                if (delta.y > 0 && cell.index != 0)
+                {
+                    GetCell(cell.index - 1).transform.localScale = new Vector3(1, 1 - Mathf.Clamp(Mathf.Abs(delta.y / 1000), 0, 0.3f), 1);
+                }
+                cell.transform.localScale = new Vector3(1, 1 + Mathf.Clamp(Mathf.Abs(delta.y / 1000), 0, 0.3f), 1);
+
+                yield return null;
+            }
+
+            if (cell.index != 0)
+            {
+                GetCell(cell.index - 1).ScaleTo(5, Vector3.one, Easing.SineOut);
+            }
+            if (cell.rt.pivot.y == 1)
+                yield return cell.ScaleTo(25, Vector3.one, Easing.SineOut);
+            else
+                yield return cell.ScaleTo(5, Vector3.one, Easing.SineOut);
+
+            while (isPointerEntered && Input.GetMouseButton(0))
+                yield return null;
+        }
     }
 }

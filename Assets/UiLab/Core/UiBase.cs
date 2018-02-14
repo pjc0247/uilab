@@ -35,11 +35,22 @@ public class UiBase : MonoBehaviour
     #endregion
 
     protected UiState state;
-    protected RectTransform rt;
-    protected Graphic graphic;
+    [HideInInspector] public RectTransform rt;
+    [HideInInspector] public Graphic graphic;
 
     protected Vector2 originalPosition;
     protected Vector3 originalScale;
+
+    private GraphicRaycaster _raycaster;
+    protected GraphicRaycaster raycaster
+    {
+        get
+        {
+            if (_raycaster == null)
+                _raycaster = GetComponentInParent<GraphicRaycaster>();
+            return _raycaster;
+        }
+    }
 
     private Material _uiMaterial;
     protected Material uiMaterial
@@ -110,13 +121,13 @@ public class UiBase : MonoBehaviour
         SendMessage("DoHaptic", SendMessageOptions.DontRequireReceiver);
     }
 
-    public void MoveTo(int frame, Vector2 target, Easing.EasingDelegate func)
+    public Coroutine MoveTo(int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        StartCoroutine(MoveToFunc(rt, frame, target, func));
+        return StartCoroutine(MoveToFunc(rt, frame, target, func));
     }
-    public void MoveTo(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
+    public Coroutine MoveTo(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        StartCoroutine(MoveToFunc(tr, frame, target, func));
+        return StartCoroutine(MoveToFunc(tr, frame, target, func));
     }
     protected IEnumerator MoveToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
@@ -131,9 +142,9 @@ public class UiBase : MonoBehaviour
         }
     }
 
-    public void ScaleTo(int frame, Vector3 target, Easing.EasingDelegate func)
+    public Coroutine ScaleTo(int frame, Vector3 target, Easing.EasingDelegate func)
     {
-        StartCoroutine(ScaleToFunc(frame, target, func));
+        return StartCoroutine(ScaleToFunc(frame, target, func));
     }
     protected IEnumerator ScaleToFunc(int frame, Vector3 target, Easing.EasingDelegate func)
     {
@@ -148,9 +159,9 @@ public class UiBase : MonoBehaviour
         }
     }
 
-    public void RotateTo(int frame, float angle, Easing.EasingDelegate func)
+    public Coroutine RotateTo(int frame, float angle, Easing.EasingDelegate func)
     {
-        StartCoroutine(RotateToFunc(frame, angle, func));
+        return StartCoroutine(RotateToFunc(frame, angle, func));
     }
     protected IEnumerator RotateToFunc(int frame, float target, Easing.EasingDelegate func)
     {
