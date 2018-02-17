@@ -55,6 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaAsBlurSize: 0
     - _BlurSize: 3
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -63,7 +64,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Lightness: 0.1
+    - _Lightness: 0.15
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -72,7 +73,8 @@ Material:
     - _PanelX: 0
     - _PanelY: 0
     - _Parallax: 0.02
-    - _Quality: 3
+    - _Quality: 0
+    - _RenderBlurTex: -1
     - _ScreenHeight: 0
     - _ScreenWidth: 0
     - _SmoothnessTextureChannel: 0
