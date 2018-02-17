@@ -72,7 +72,7 @@ Material:
     - _PanelX: 0
     - _PanelY: 0
     - _Parallax: 0.02
-    - _Quality: 3
+    - _Quality: 0
     - _ScreenHeight: 0
     - _ScreenWidth: 0
     - _SmoothnessTextureChannel: 0
