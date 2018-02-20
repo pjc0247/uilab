@@ -3,16 +3,88 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>ParkJunChul - pjc0247@naver.com</title>
+    <title>Unity WebGL Player | uilab</title>
+    <style>
+      .logo {
+        background-image: url(progress.png);
+        background-repeat: no-repeat;
+        width: 700px;
+        height: 500px;
+
+        position: fixed;
+        left: calc(50% - 350px);
+        top: calc(50% - 250px);
+
+        z-index: 111;
+      }
+      .progress, .full {
+        background: linear-gradient(to right, #1c92d2, #f2fcfe);
+        background-repeat: no-repeat;
+        height: 440px;
+
+        position: fixed;
+        left: 0px;
+        top: calc(50% - 250px);
+      }
+    </style>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/uss.json");
+      function CustomProgress(gameInstance, progress) {
+        if (!gameInstance.Module)
+          return;
+        if (!gameInstance.logo) {
+          gameInstance.logo = document.createElement("div");
+          gameInstance.logo.className = "logo " + gameInstance.Module.splashScreenStyle;
+          gameInstance.container.appendChild(gameInstance.logo);
+        }
+        if (!gameInstance.progress) {    
+          gameInstance.progress = document.createElement("div");
+          gameInstance.progress.className = "progress " + gameInstance.Module.splashScreenStyle;
+          gameInstance.progress.empty = document.createElement("div");
+          gameInstance.progress.empty.className = "empty";
+          gameInstance.progress.appendChild(gameInstance.progress.empty);
+          gameInstance.progress.full = document.createElement("div");
+          gameInstance.progress.full.className = "full";
+          gameInstance.progress.appendChild(gameInstance.progress.full);
+          gameInstance.container.appendChild(gameInstance.progress);
+        }
+        gameInstance.progress.full.style.width = (100 * progress) + "%";
+        gameInstance.progress.empty.style.width = (100 * (1 - progress)) + "%";
+        if (progress == 1)
+          gameInstance.logo.style.display = gameInstance.progress.style.display = "none";
+      }
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/uss.json", {onProgress: CustomProgress});
     </script>
   </head>
-  <body style="margin:0;background:black">
+  <body style="margin:0;background:black;overflow:hidden">
+    <canvas id="bg-canvas" width="1200px" height="676px" style="width:100%;height:100%;position:absolute;"></canvas>
+	<video id="video" style="display:none" autoplay loop controls="false" webkit-playsinline playsinline>
+		<source src="background.mp4" type="video/mp4" />
+	</video>
     <div id="gameContainer" style="margin:auto !important;"></div>
   </body>
 </html>
+<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+$(function() {
+  var canvas = document.getElementById('bg-canvas');
+  var ctx = canvas.getContext('2d');
+  var video = document.getElementById('video');
+
+  video.addEventListener('play', function() {
+    var $this = this; //cache
+    (function loop() {
+      if (!$this.paused && !$this.ended) {
+        ctx.drawImage($this, 0, 0);
+        setTimeout(loop, 1000 / 30); // drawing at 30fps
+      }
+    })();
+  }, 0);
+});
+</script>
 <script>
   var canvas = document.getElementById("gameContainer");
   var body = document.body,

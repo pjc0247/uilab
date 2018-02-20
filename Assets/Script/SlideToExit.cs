@@ -21,6 +21,9 @@ public class SlideToExit : MonoBehaviour,
         blurMat = new Material(blurLayer.material);
         blurLayer.material = blurMat;
     }
+    void Start()
+    {
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
