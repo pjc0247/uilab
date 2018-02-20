@@ -25,6 +25,8 @@ public class ExpandContent : MonoBehaviour
         originalHeadImageCullLayerSizeDelta, originalContentTopMarginSizeDelta;
     private bool expanded = false;
 
+    private Vector2 prevScroll;
+
     void Awake()
     {
         rt = GetComponent<RectTransform>();
@@ -41,6 +43,9 @@ public class ExpandContent : MonoBehaviour
     {
         expanded = true;
 
+        var scroll = GetComponentInParent<ScrollRect>();
+        prevScroll = scroll.normalizedPosition;
+
         StopAllCoroutines();
         StartCoroutine(ExpandFunc());
         StartCoroutine(ExpandScaleFunc());
@@ -53,12 +58,16 @@ public class ExpandContent : MonoBehaviour
     {
         expanded = false;
 
+        var scroll = GetComponentInParent<ScrollRect>();
+        scroll.StopMovement();
+        scroll.normalizedPosition = prevScroll;
+
         StopAllCoroutines();
         StartCoroutine(ShrinkFunc());
 
-        SendMessage("OnShrinkContent");
+        SendMessage("OnShrinkContent", SendMessageOptions.DontRequireReceiver);
         foreach (var g in GetComponentsInChildren<Content>())
-            g.SendMessage("OnShrinkContent");
+            SendMessage("OnShrinkContent", SendMessageOptions.DontRequireReceiver);
     }
 
     void Update()
@@ -69,6 +78,7 @@ public class ExpandContent : MonoBehaviour
 
     IEnumerator ExpandFunc()
     {
+        var scroll = GetComponentInParent<ScrollRect>();
         rt.SetAsLastSibling();
 
         for (int i = 0; i < 30; i++)
@@ -83,6 +93,8 @@ public class ExpandContent : MonoBehaviour
 
             rt.anchoredPosition += (new Vector2(0, 160) - rt.anchoredPosition) * 0.25f;
             rt.sizeDelta += (new Vector2(rt.sizeDelta.x, 3000) - rt.sizeDelta) * 0.25f;
+
+            scroll.normalizedPosition += (new Vector2(0, 1) - scroll.normalizedPosition) * 0.25f;
 
             yield return null;
         }
@@ -114,6 +126,9 @@ public class ExpandContent : MonoBehaviour
 
     IEnumerator ShrinkFunc()
     {
+        var scroll = GetComponentInParent<ScrollRect>();
+
+        scroll.vertical = false;
         for (int i = 0; i < 30; i++)
         {
             headImage.transform.localScale += (originalHeadImageScale - headImage.transform.localScale) * 0.25f;
@@ -126,7 +141,11 @@ public class ExpandContent : MonoBehaviour
             content.localScale += (Vector3.one - content.localScale) * 0.25f;
             rt.sizeDelta += (originalSizeDelta - rt.sizeDelta) * 0.25f;
 
+            scroll.StopMovement();
+            scroll.normalizedPosition = (prevScroll);
+
             yield return null;
         }
+        scroll.vertical = true;
     }
 }
