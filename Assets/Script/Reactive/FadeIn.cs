@@ -18,8 +18,8 @@ public class FadeIn : ScrollReactive
     }
 	public void OnScroll(int y)
     {
-        if (y <= targetY - 400) return;
-        if (y >= targetY + 400) return;
+        if (y <= targetY - 800) return;
+        if (y >= targetY + 800) return;
 
         var value = Mathf.Clamp(((float)y - targetY) / 300, 0, 1);
 
