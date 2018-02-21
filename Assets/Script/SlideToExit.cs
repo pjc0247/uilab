@@ -11,12 +11,17 @@ public class SlideToExit : MonoBehaviour,
 
     private RectTransform app;
     private Vector3 downPosition;
+    private Vector2 originalPosition;
+    private Vector3 originalScale;
 
     private Material blurMat;
 
     void Awake()
     {
         app = transform.parent.GetComponent<RectTransform>();
+
+        originalPosition = app.anchoredPosition;
+        originalScale = app.localScale;
 
         blurMat = new Material(blurLayer.material);
         blurLayer.material = blurMat;
@@ -46,7 +51,7 @@ public class SlideToExit : MonoBehaviour,
             var scaleDown = Mathf.Clamp(diff.y / 1024, -0.7f, 0);
 
             app.anchoredPosition = new Vector2(app.anchoredPosition.x, offsetY);
-            app.localScale = Vector3.one * (1 + scaleDown);
+            app.localScale = Vector3.one * (originalScale.x + scaleDown * originalScale.x);
 
             blurMat.SetFloat("_BlurSize", Mathf.Clamp(20 + (diff.y / 512), 15, 20));
 
@@ -58,16 +63,18 @@ public class SlideToExit : MonoBehaviour,
         var blur = blurMat.GetFloat("_BlurSize");
 
         FadeOpacity(0.3f, 0);
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < 30; i++)
         {
             app.localScale += (Vector3.zero - app.localScale) * 0.15f;
-            app.localPosition += (new Vector3(0, 750, 0) - app.localPosition) * 0.15f;
+            app.anchoredPosition += (new Vector2(0, 1700) - app.anchoredPosition) * 0.15f;
 
             blur += (0 - blur) * 0.15f;
             blurMat.SetFloat("_BlurSize", blur);
 
             yield return null;
         }
+
+        app.gameObject.SetActive(false);
     }
 
     private void FadeOpacity(float duration, float f)

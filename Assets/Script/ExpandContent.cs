@@ -140,7 +140,7 @@ public class ExpandContent : MonoBehaviour
             transform.localScale += (Vector3.one - transform.localScale) * 0.25f;
             content.localScale += (Vector3.one - content.localScale) * 0.25f;
             rt.sizeDelta += (originalSizeDelta - rt.sizeDelta) * 0.25f;
-
+              
             scroll.StopMovement();
             scroll.normalizedPosition = (prevScroll);
 

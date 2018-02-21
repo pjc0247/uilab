@@ -133,7 +133,7 @@ public class VerticalTableView : UiBase,
                 else if (delta.y > 10)
                     cell.rt.pivot = new Vector2(cell.rt.pivot.x, 0);
 
-                if (delta.y > 300)
+                if (delta.y > 150)
                 {
                     if (ScrollDown())
                     {
@@ -143,7 +143,7 @@ public class VerticalTableView : UiBase,
                     }
                     else break;
                 }
-                else if (delta.y < -300)
+                else if (delta.y < -150)
                 {
                     if (ScrollUp())
                     {

@@ -1314,6 +1314,7 @@ MonoBehaviour:
   graphic: {fileID: 0}
   tableView: {fileID: 1039557028}
   index: 2
+  offset: -706
 --- !u!114 &583681861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1635,6 +1636,7 @@ MonoBehaviour:
   graphic: {fileID: 0}
   tableView: {fileID: 1039557028}
   index: 1
+  offset: -353
 --- !u!114 &696376488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2879,6 +2881,7 @@ MonoBehaviour:
   graphic: {fileID: 0}
   tableView: {fileID: 1039557028}
   index: 0
+  offset: 0
 --- !u!114 &1437956351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4224,6 +4227,7 @@ MonoBehaviour:
   graphic: {fileID: 0}
   tableView: {fileID: 1039557028}
   index: 3
+  offset: -1059
 --- !u!114 &1958710739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4391,6 +4395,11 @@ Prefab:
         type: 2}
       propertyPath: dim.a
       value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 224703311731751510, guid: c293ac3e80bd8aa4e81bac8bf664fd76,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 640
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c293ac3e80bd8aa4e81bac8bf664fd76, type: 2}
