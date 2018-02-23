@@ -103,7 +103,7 @@ public class VerticalTableView : UiBase,
     {
         while (isPointerEntered)
         {
-            while (isPointerEntered && Input.GetMouseButton(0) == false)
+            while (isPointerEntered && Input.GetMouseButtonDown(0) == false)
                 yield return null;
 
             TableViewCell cell = null;
@@ -115,11 +115,14 @@ public class VerticalTableView : UiBase,
             {
                 position = Input.mousePosition
             }, results);
-            foreach (var result in results)
+
+            var tr = results[0].gameObject.transform;
+            while(tr.parent != null)
             {
-                var _cell = result.gameObject.GetComponent<TableViewCell>();
-                if (_cell == null) continue;
-                cell = _cell; break;
+                cell = tr.GetComponent<TableViewCell>();
+                if (cell != null)
+                    break;
+                tr = tr.parent;
             }
 
             if (cell == null) continue;

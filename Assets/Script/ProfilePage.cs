@@ -36,7 +36,7 @@ public class ProfilePage : MonoBehaviour
     {
         var y = scroll.content.anchoredPosition.y;
 
-        Debug.Log(y);
+        //Debug.Log(y);
 
         foreach (var c in GetComponentsInChildren<ScrollReactive>())
             c.SendMessage("OnScroll", y);

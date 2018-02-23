@@ -43,7 +43,7 @@ public class ExpandableCell : UiBase
 
         MoveTo(topDeco, 20, new Vector2(-130, 800), Easing.BackOut);
         ScaleTo(mainTexture, 20, Vector3.one * textureExpandScale, Easing.BackOut);
-        SizeTo(20, new Vector2(rt.sizeDelta.x, 2370), Easing.BackOut);
+        SizeTo(20, new Vector2(rt.sizeDelta.x, 2380), Easing.BackOut);
     }
     public void Shrink()
     {
