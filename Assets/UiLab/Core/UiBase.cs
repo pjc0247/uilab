@@ -170,6 +170,12 @@ public class UiBase : MonoBehaviour
     {
         return StartCoroutine(SizeToFunc(tr, frame, target, func));
     }
+    public Coroutine SizeTo(Graphic g, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        var rt = g.GetComponent<RectTransform>();
+        if (rt == null) throw new ArgumentException("g");
+        return StartCoroutine(SizeToFunc(rt, frame, target, func));
+    }
     protected IEnumerator SizeToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
         var origin = tr.sizeDelta;
@@ -191,6 +197,12 @@ public class UiBase : MonoBehaviour
     {
         return StartAnimation("scale", ScaleToFunc(tr, frame, target, func));
     }
+    public Coroutine ScaleTo(Graphic g, int frame, Vector3 target, Easing.EasingDelegate func)
+    {
+        var rt = g.GetComponent<RectTransform>();
+        if (rt == null) throw new ArgumentException("g");
+        return StartAnimation("scale", ScaleToFunc(rt, frame, target, func));
+    }
     protected IEnumerator ScaleToFunc(RectTransform tr, int frame, Vector3 target, Easing.EasingDelegate func)
     {
         var origin = tr.localScale;
@@ -206,9 +218,19 @@ public class UiBase : MonoBehaviour
 
     public Coroutine RotateTo(int frame, float angle, Easing.EasingDelegate func)
     {
-        return StartCoroutine(RotateToFunc(frame, angle, func));
+        return StartCoroutine(RotateToFunc(rt, frame, angle, func));
     }
-    protected IEnumerator RotateToFunc(int frame, float target, Easing.EasingDelegate func)
+    public Coroutine RotateTo(RectTransform tr, int frame, float angle, Easing.EasingDelegate func)
+    {
+        return StartCoroutine(RotateToFunc(tr, frame, angle, func));
+    }
+    public Coroutine RotateTo(Graphic g, int frame, float angle, Easing.EasingDelegate func)
+    {
+        var rt = g.GetComponent<RectTransform>();
+        if (rt == null) throw new ArgumentException("g");
+        return StartCoroutine(RotateToFunc(rt, frame, angle, func));
+    }
+    protected IEnumerator RotateToFunc(RectTransform rt, int frame, float target, Easing.EasingDelegate func)
     {
         var origin = rt.localEulerAngles.z;
         if (origin > 180) origin = origin - 360;
