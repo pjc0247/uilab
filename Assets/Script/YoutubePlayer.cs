@@ -53,9 +53,9 @@ public class YoutubePlayer : UiBase
 
         requestedPlay = true;
         youtube.PlayYoutubeVideo(youtube.videoId);
-        StartCoroutine(WaitForPlay());
+        StartCoroutine(WaitForPlaying());
     }
-    IEnumerator WaitForPlay()
+    IEnumerator WaitForPlaying()
     {
         play.CrossFadeAlpha(0, 0.2f, true);
         spinner.CrossFadeAlpha(1, 0.2f, true);
