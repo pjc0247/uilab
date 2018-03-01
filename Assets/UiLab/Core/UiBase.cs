@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,11 +76,7 @@ public class UiBase : MonoBehaviour
         originalPosition = rt.anchoredPosition;
         originalScale = rt.localScale;
     }
-	void Start ()
-    {
-		
-	}
-    
+
     public bool IsPlaying(string key)
     {
         return state.IsPlaying(key);
@@ -131,6 +128,26 @@ public class UiBase : MonoBehaviour
     {
         return StartAnimation("move", MoveToFunc(tr, frame, target, func));
     }
+    public Coroutine MoveTo(Graphic g, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        var rt = g.GetComponent<RectTransform>();
+        if (rt == null) throw new ArgumentException("g");
+        return StartAnimation("move", MoveToFunc(rt, frame, target, func));
+    }
+    public Coroutine MoveBy(int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        return MoveTo(rt, frame, rt.anchoredPosition + target, func);
+    }
+    public Coroutine MoveBy(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        return MoveTo(tr, frame, tr.anchoredPosition + target, func);
+    }
+    public Coroutine MoveBy(Graphic g, int frame, Vector2 target, Easing.EasingDelegate func)
+    {
+        var rt = g.GetComponent<RectTransform>();
+        if (rt == null) throw new ArgumentException("g");
+        return MoveBy(rt, frame, target, func);
+    }
     protected IEnumerator MoveToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
         var origin = tr.anchoredPosition;
@@ -168,11 +185,11 @@ public class UiBase : MonoBehaviour
 
     public Coroutine ScaleTo(int frame, Vector3 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(ScaleToFunc(rt, frame, target, func));
+        return StartAnimation("scale", ScaleToFunc(rt, frame, target, func));
     }
     public Coroutine ScaleTo(RectTransform tr, int frame, Vector3 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(ScaleToFunc(tr, frame, target, func));
+        return StartAnimation("scale", ScaleToFunc(tr, frame, target, func));
     }
     protected IEnumerator ScaleToFunc(RectTransform tr, int frame, Vector3 target, Easing.EasingDelegate func)
     {
