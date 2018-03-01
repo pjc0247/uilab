@@ -20,7 +20,7 @@ public class FadeInWithDrop : UiBase
     {
         MoveTo(25, originalPosition, Easing.BackOut);
 
-        yield return StartFadeAnimation(RotateToFunc(20, -30, Easing.SineOut));
-        yield return StartFadeAnimation(RotateToFunc(18, 0, Easing.SineOut));
+        yield return StartFadeAnimation(RotateToFunc(rt, 20, -30, Easing.SineOut));
+        yield return StartFadeAnimation(RotateToFunc(rt, 18, 0, Easing.SineOut));
     }
 }

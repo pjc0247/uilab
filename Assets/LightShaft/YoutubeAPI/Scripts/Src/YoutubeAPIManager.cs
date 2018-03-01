@@ -6,6 +6,8 @@ using System;
 
 public class YoutubeAPIManager : MonoBehaviour {
 
+    public static YoutubeAPIManager instance;
+
     private YoutubeData data;
     private YoutubeData[] searchResults;
     private YoutubeComments[] comments;
@@ -31,9 +33,13 @@ public class YoutubeAPIManager : MonoBehaviour {
         StartCoroutine(LoadSingleVideo(videoId, callback));
     }
 
+    void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
-        Debug.LogWarning("REMEMBER TO CHANGE THE API KEY TO YOUR OWN KEY - REMOVE THIS IF YOU CHANGED");
+        //Debug.LogWarning("REMEMBER TO CHANGE THE API KEY TO YOUR OWN KEY - REMOVE THIS IF YOU CHANGED");
     }
 
 
