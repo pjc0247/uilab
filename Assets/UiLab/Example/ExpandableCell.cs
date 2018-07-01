@@ -11,7 +11,8 @@ public class ExpandableCell : UiBase
     public RectTransform mainTexture;
     public RectTransform topDeco;
 
-    private bool isExpanded = false;
+    public bool isExpanded = false;
+
     private Vector3 originalMainTextureScale;
     private KeepScale mainTextureKeepScale;
 

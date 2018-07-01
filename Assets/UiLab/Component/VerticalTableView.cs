@@ -60,6 +60,8 @@ public class VerticalTableView : UiBase,
 
     public bool ScrollUp()
     {
+        var exCell = GetCell(firstItemIndex).GetComponent<ExpandableCell>();
+        if (exCell != null && exCell.isExpanded) return false;
         if (firstItemIndex == 0) return false;
 
         var firstItem = transform.GetChild(firstItemIndex).GetComponent<RectTransform>();
@@ -70,6 +72,8 @@ public class VerticalTableView : UiBase,
     }
     public bool ScrollDown()
     {
+        var exCell = GetCell(firstItemIndex).GetComponent<ExpandableCell>();
+        if (exCell != null && exCell.isExpanded) return false;
         if (firstItemIndex == transform.childCount - 1) return false;
 
         var lastItem = transform.GetChild(firstItemIndex).GetComponent<RectTransform>();
