@@ -13,16 +13,15 @@ public class CorgiContent : MonoBehaviour
     {
         player.Play();
 
-        description.text = 
-            "Corgi dog, dog corgi, corgi dog\r\n" +
-            "Dog corgi, corgi dog, dog corgi licks floor\r\n" + 
-            "Woof, Woof, Woof, Woof";
+        description.text =
+            "Anime style action FPS.\r\n" +
+            "Made with Unity.";
     }
     void OnShrinkContent()
     {
         player.Stop();
 
         description.text =
-            "Corgi dog, dog corgi, corgi dog";
+            "Anime action FPS game.";
     }
 }

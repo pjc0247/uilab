@@ -47,6 +47,7 @@ public class Nav : MonoBehaviour
 
     public void Change(Scene scene)
     {
+        Pop();
         if (scene == Scene.AppList)
         {
             StartCoroutine(SlideToFunc(-1218, feed));

@@ -23,8 +23,9 @@ public class FadeIn : ScrollReactive
 
         var value = Mathf.Clamp(((float)y - targetY) / 300, 0, 1);
 
-        GetComponent<Graphic>().canvasRenderer.SetAlpha(value);
-        transform.localScale = Vector3.one * initialScale +  Vector3.one * (1 - initialScale) * value;
+        foreach (var g in GetComponentsInChildren<Graphic>())
+            g.canvasRenderer.SetAlpha(value);
+        transform.localScale = Vector3.one * initialScale +  Vector3.one * (originalScale - initialScale) * value;
     }
 }
 
