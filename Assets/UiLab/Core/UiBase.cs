@@ -164,17 +164,17 @@ public class UiBase : MonoBehaviour
 
     public Coroutine SizeTo(int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(SizeToFunc(rt, frame, target, func));
+        return StartAnimation("size", SizeToFunc(rt, frame, target, func));
     }
     public Coroutine SizeTo(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {
-        return StartCoroutine(SizeToFunc(tr, frame, target, func));
+        return StartAnimation("size", SizeToFunc(tr, frame, target, func));
     }
     public Coroutine SizeTo(Graphic g, int frame, Vector2 target, Easing.EasingDelegate func)
     {
         var rt = g.GetComponent<RectTransform>();
         if (rt == null) throw new ArgumentException("g");
-        return StartCoroutine(SizeToFunc(rt, frame, target, func));
+        return StartAnimation("size", SizeToFunc(rt, frame, target, func));
     }
     protected IEnumerator SizeToFunc(RectTransform tr, int frame, Vector2 target, Easing.EasingDelegate func)
     {

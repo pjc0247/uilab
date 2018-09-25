@@ -84,4 +84,9 @@ public class Nav : MonoBehaviour
             yield return null;
         }
     }
+
+    public void PushAppDetail(string name)
+    {
+        Push(Scene.AppDetail);
+    }
 }

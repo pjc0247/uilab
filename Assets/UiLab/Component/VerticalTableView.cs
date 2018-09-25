@@ -102,6 +102,8 @@ public class VerticalTableView : UiBase,
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerEntered = false;
+
+        StopCoroutine(scrollCoro);
     }
     IEnumerator ScrollFunc()
     {
@@ -119,6 +121,8 @@ public class VerticalTableView : UiBase,
             {
                 position = Input.mousePosition
             }, results);
+
+            if (results.Count == 0) continue;
 
             var tr = results[0].gameObject.transform;
             while(tr.parent != null)
