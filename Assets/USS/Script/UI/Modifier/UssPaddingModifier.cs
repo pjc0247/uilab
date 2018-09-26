@@ -10,24 +10,28 @@ public class UssPaddingModifier
     public void ApplyPaddingLeft(RectTransform g, UssValue value)
     {
         var v = value.AsFloat();
-        g.offsetMin = new Vector2(v, g.offsetMin.y);
+        var elem = g.GetComponent<UtmlElement>();
+        elem.padding.x = v;
     }
     [UssModifierKey("padding-right")]
     public void ApplyPaddingRight(RectTransform g, UssValue value)
     {
         var v = value.AsFloat();
-        g.offsetMax = new Vector2(-v, g.offsetMax.y);
+        var elem = g.GetComponent<UtmlElement>();
+        elem.padding.width = v;
     }
     [UssModifierKey("padding-bottom")]
     public void ApplyPaddingBottom(RectTransform g, UssValue value)
     {
         var v = value.AsFloat();
-        g.offsetMin = new Vector2(g.offsetMin.x, v);
+        var elem = g.GetComponent<UtmlElement>();
+        elem.padding.height = v;
     }
     [UssModifierKey("padding-top")]
     public void ApplyPaddingTop(RectTransform g, UssValue value)
     {
         var v = value.AsFloat();
-        g.offsetMax = new Vector2(g.offsetMin.x, -v);
+        var elem = g.GetComponent<UtmlElement>();
+        elem.padding.y = v;
     }
 }

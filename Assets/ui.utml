@@ -1,0 +1,20 @@
+<body>
+  <horizontal>
+  <img src="corgi.jpg" />
+  <vertical>
+     <text class="title">abv</text>
+     <text>b</text>
+  </vertical>
+  </horizontal>
+
+  <text> asdf <text>bb</text> </text>
+
+  <style>
+    Text {
+      color: red;
+    }
+    .title {
+      padding-left: 52;
+    }
+  </style>
+</body>

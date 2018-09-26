@@ -36,16 +36,24 @@ public class UssFactory : MonoBehaviour
 
     public static GameObject CreateObject(HtmlNode node, Transform parent)
     {
-        var go = new GameObject(node.Name);
+        var go = new GameObject(node.Name, typeof(RectTransform));
         go.transform.SetParent(parent);
 
         if (ctors.ContainsKey(node.Name))
         {
             var ctor = ctors[node.Name];
-            ctor.Invoke(null, new object[]
-            {
-                go, new UtmlConstructionData(node)
-            });
+            var comp = go.AddComponent(ctor.DeclaringType);
+            var cd = new UtmlConstructionData(node);
+
+            ctor.Invoke(comp, new object[] { cd });
+
+            var id = cd.GetStringAttribute("id", null);
+            if (id != null)
+                go.name = id;
+
+            var klass = cd.GetStringAttribute("class", null);
+            if (klass != null)
+                go.AddComponent<UssClass>().classes = klass;
         }
 
         return go;

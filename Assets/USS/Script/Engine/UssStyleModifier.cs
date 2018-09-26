@@ -64,6 +64,28 @@ public class UssStyleModifier : MonoBehaviour
             });
         }
     }
+
+    public static void ApplyUss(string uss)
+    {
+        try
+        {
+            var result = UssParser.Parse(uss);
+            styles = new List<UssStyleDefinition>(result.styles);
+            foreach (var pair in result.values)
+                UssValues.SetValue(pair.Key, pair.Value);
+
+            Apply(UssRoot.FindRootInScene().gameObject);
+
+#if UNITY_EDITOR
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(
+                UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+#endif
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+    }
     public static void LoadUss(string uss)
     {
         loaded = true;
