@@ -9,7 +9,8 @@ public class Nav : MonoBehaviour
         Feed,
         AppList,
         AppDetail,
-        Profile
+        Profile,
+        Setting
     }
 
     public static Nav instance;
@@ -18,6 +19,7 @@ public class Nav : MonoBehaviour
     public RectTransform appDetail;
     public RectTransform appList;
     public RectTransform profile;
+    public RectTransform setting;
 
     void Awake()
     {
@@ -34,7 +36,7 @@ public class Nav : MonoBehaviour
     }
     public void OnClickGameProjects()
     {
-        Push(Scene.AppDetail);
+        Change(Scene.AppList);
     }
     public void OnClickProfile()
     {
@@ -42,7 +44,7 @@ public class Nav : MonoBehaviour
     }
     public void OnClickUtilityProjects()
     {
-        Change(Scene.AppList);
+        Change(Scene.Setting);
     }
 
     public void Change(Scene scene)
@@ -53,16 +55,26 @@ public class Nav : MonoBehaviour
             StartCoroutine(SlideToFunc(-1218, feed));
             StartCoroutine(SlideToFunc(0, appList));
             StartCoroutine(SlideToFunc(1218, profile));
+            StartCoroutine(SlideToFunc(1218, setting));
         }
         else if (scene == Scene.Feed)
         {
             StartCoroutine(SlideToFunc(0, feed));
             StartCoroutine(SlideToFunc(1218, appList));
             StartCoroutine(SlideToFunc(1218, profile));
+            StartCoroutine(SlideToFunc(1218, setting));
         }
         else if (scene == Scene.Profile)
         {
             StartCoroutine(SlideToFunc(0, profile));
+            StartCoroutine(SlideToFunc(1218, feed));
+            StartCoroutine(SlideToFunc(1218, appList));
+            StartCoroutine(SlideToFunc(1218, setting));
+        }
+        else if (scene == Scene.Setting)
+        {
+            StartCoroutine(SlideToFunc(0, setting));
+            StartCoroutine(SlideToFunc(1218, profile));
             StartCoroutine(SlideToFunc(1218, feed));
             StartCoroutine(SlideToFunc(1218, appList));
         }
