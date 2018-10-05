@@ -87,6 +87,10 @@ public class Nav : MonoBehaviour
 
     public void PushAppDetail(string name)
     {
+        AppDetailController.pageName = name;
+
+        appDetail.gameObject.SetActive(false);
+        appDetail.gameObject.SetActive(true);
         Push(Scene.AppDetail);
     }
 }

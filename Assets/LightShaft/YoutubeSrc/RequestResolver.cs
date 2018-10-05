@@ -255,10 +255,11 @@ namespace YoutubeLight
 
         private static string GetHtml5PlayerVersion(JObject json)
         {
-            var regex = new Regex(@"player-(.+?).js");
+            var regex = new Regex(@"player[-_](.+?).js");
 
             string js = json["assets"]["js"].ToString();
 
+            Debug.Log(js);
             return regex.Match(js).Result("$1");
         }
 
