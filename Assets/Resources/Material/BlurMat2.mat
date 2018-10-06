@@ -4,10 +4,10 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: BlurMat2
-  m_Shader: {fileID: 4800000, guid: 22514f0fb01570d4480b1561996392c0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6d6b33fbd55b8b943ba8c64c9eafb89f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

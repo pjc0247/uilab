@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Highlighter : MonoBehaviour
 {
+    public Text selectedObjects;
     public Text errorMessage;
 
     private List<Graphic> prevObjects = new List<Graphic>();
@@ -30,12 +31,14 @@ public class Highlighter : MonoBehaviour
 
         foreach (var g in go)
         {
-            foreach (var c in g.GetComponents<Graphic>())
+            foreach (var c in g.GetComponentsInChildren<Graphic>())
             {
-                c.CrossFadeColor(Color.red, 0.5f, true, true);
+                c.CrossFadeColor(new Color32(255, 128, 128, 128), 0.5f, true, true);
                 prevObjects.Add(c);
             }
         }
+
+        selectedObjects.text = go.Length + " object(s)";
     }
 
     public void OnStyleSheetChanged(string text)

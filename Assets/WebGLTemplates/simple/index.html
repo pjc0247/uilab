@@ -69,6 +69,11 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script>
+if (window.navigator.userAgent.indexOf("Edge") > -1)
+{
+	alert("I recommend you to use the chrome browser.");
+}
+
 $(function() {
   var canvas = document.getElementById('bg-canvas');
   var ctx = canvas.getContext('2d');
