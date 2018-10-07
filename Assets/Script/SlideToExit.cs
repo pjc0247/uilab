@@ -39,9 +39,24 @@ public class SlideToExit : MonoBehaviour,
     public void OnPointerUp(PointerEventData eventData)
     {
         StopAllCoroutines();
-        StartCoroutine(ExitFunc());
+
+        if (Input.mousePosition.y - downPosition.y >= 80)
+            StartCoroutine(ExitFunc());
+        else
+            StartCoroutine(ReturnFunc());
     }
 
+    IEnumerator ReturnFunc()
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            app.anchoredPosition +=
+                (new Vector2(app.anchoredPosition.x, 0) - app.anchoredPosition)
+                * 0.15f;
+            app.localScale += (Vector3.one - app.localScale) * 0.15f;
+            yield return null;
+        }
+    }
     IEnumerator SlideFunc()
     {
         while (true)

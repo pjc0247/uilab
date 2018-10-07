@@ -10,15 +10,23 @@ public class AppDetailController : MonoBehaviour
 		
 	}
 
+    public void OnClickYoutube(string url)
+    {
+        Application.OpenURL(url);
+    }
+
     void OnEnable()
     {
         var trs = transform.GetComponentsInChildren<Transform>(true);
         foreach (Transform t in trs)
         {
-            Debug.Log(t.name);
+            if (transform == t) continue;
+            if (t.parent != transform) continue;
 
             if (t.name == pageName)
                 t.gameObject.SetActive(true);
+            else
+                t.gameObject.SetActive(false);
         }
     }
 }

@@ -65,7 +65,7 @@
   </body>
 </html>
 <script
-  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script>
@@ -84,8 +84,9 @@ $(function() {
     (function loop() {
       if (!$this.paused && !$this.ended) {
         ctx.drawImage($this, 0, 0);
-        setTimeout(loop, 1000 / 30); // drawing at 30fps
+        
       }
+	  setTimeout(loop, 1000 / 30); // drawing at 30fps
     })();
   }, 0);
 });

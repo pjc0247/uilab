@@ -14,14 +14,15 @@ public class CorgiContent : MonoBehaviour
         player.Play();
 
         description.text =
-            "Anime style action FPS.\r\n" +
-            "Made with Unity.";
+            "This is a my portfolio page which imitates AppStore.\r\n" +
+            "\r\n" +
+            "Just pull down from top of the screen If you want to return to previous page.";
     }
     void OnShrinkContent()
     {
         player.Stop();
 
         description.text =
-            "Anime action FPS game.";
+            "Let me introduce what is it.";
     }
 }

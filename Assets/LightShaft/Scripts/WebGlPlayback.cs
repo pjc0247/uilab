@@ -30,6 +30,14 @@ public class WebGlPlayback : Content
 
     RequestResolver resolver;
 
+    private GameObject loading;
+
+    void Awake()
+    {
+        loading = Instantiate(Resources.Load<GameObject>("Loading"), transform);
+        loading.GetComponent<RectTransform>()
+            .anchoredPosition = Vector2.zero;
+    }
     public void Start()
     {
         resolver = gameObject.AddComponent<RequestResolver>();
@@ -206,6 +214,8 @@ public class WebGlPlayback : Content
             else
                 yield return new WaitForSeconds(0);
         }
+
+        loading.SetActive(false);
         unityVideoPlayer.Play();
         if (this.GetComponent<VideoController>() != null)
         {
@@ -258,6 +268,9 @@ public class WebGlPlayback : Content
     //Experimental
     private void CheckIfIsDesync()
     {
+        if (audioVplayer == null) return;
+
+
         if (!noHD)
         {
             //Debug.Log(unityVideoPlayer.time+" "+ audioVplayer.time);
