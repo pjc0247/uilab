@@ -11,11 +11,12 @@ public class UtmlRoot : MonoBehaviour
     public string utmlPath;
     public Object utml;
 
+    private UtmlBinding binding;
     private string inlineStyle;
 
     void Start ()
     {
-        
+        binding = GetComponent<UtmlBinding>();
 	}
 
     public void Rebuild(string doc)
