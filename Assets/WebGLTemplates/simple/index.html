@@ -26,6 +26,11 @@
         left: 0px;
         top: calc(50% - 250px);
       }
+
+      #gameContainer {
+        width: 100% !important;
+        height: calc(100vw * 0.5625) !important;
+      }
     </style>
     <script src="Build/UnityLoader.js"></script>
     <script>
@@ -101,5 +106,4 @@ $(function() {
 
   canvas.style.width = (height / 9) * 16 + "px";
   canvas.style.height = (height) + "px";
-  canvas.style.left = "calc(50% - " + ((height / 9) * 8) + "px)";
 </script>
