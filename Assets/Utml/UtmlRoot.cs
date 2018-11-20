@@ -7,7 +7,7 @@ using HtmlAgilityPack;
 [DisallowMultipleComponent]
 public class UtmlRoot : MonoBehaviour
 {
-    //[HideInInspector]
+    [HideInInspector]
     public string utmlPath;
     public Object utml;
 
