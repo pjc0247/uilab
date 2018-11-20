@@ -1,5 +1,5 @@
 !*.dll
-
+Logs/
 .vs/
 web/
 
