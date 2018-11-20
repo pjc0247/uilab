@@ -113,8 +113,27 @@ public class UtmlImgElement : UtmlElement
 {
     public override void Construct(UtmlConstructionData cd)
     {
-        var img = gameObject.AddComponent<Image>();
+        var src = cd.GetStringAttribute("src", "");
 
-        img.sprite = UtmlAssetLoader.Load<Sprite>(cd.GetStringAttribute("src", ""));
+        if (src.StartsWith("http"))
+            throw new System.NotImplementedException();
+        //InitializeWithHttp(src);
+        else
+            InitializeWithResource(src);
+    }
+
+    private void InitializeWithHttp(string src)
+    {
+        StartCoroutine(LoadFunc(src));
+    }
+    private IEnumerator LoadFunc(string src)
+    {
+        var www = new WWW(src);
+        yield return www;
+    }
+    private void InitializeWithResource(string src)
+    {
+        var img = gameObject.AddComponent<Image>();
+        img.sprite = UtmlAssetLoader.Load<Sprite>(src);
     }
 }
