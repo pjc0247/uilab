@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>pjc0247</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      .logo {
+        background-image: url(progress.png);
+        background-repeat: no-repeat;
+        width: 700px;
+        height: 500px;
+
+        position: fixed;
+        left: calc(50% - 350px);
+        top: calc(50% - 250px);
+
+        z-index: 111;
+      }
+      .progress, .full {
+        background: linear-gradient(to right, #1c92d2, #f2fcfe);
+        background-repeat: no-repeat;
+        height: 440px;
+
+        position: fixed;
+        left: 0px;
+        top: calc(50% - 250px);
+      }
+      .spinner { 
+        position: fixed;
+        left: calc(50% - 15px);
+        top: calc(50% - 15px);
+        zoom: 4;
+      }
+      .hidden {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(1.5);
+
+        transition: visibility 0s 0.5s, opacity 0.5s linear, transform 0.5s;
+      }
+
+      #gameContainer {
+        width: 100% !important;
+        height: calc(100vw * 0.5625) !important;
+      }
+    </style>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      function CustomProgress(gameInstance, progress) {
+        if (!gameInstance.Module)
+          return;
+        if (!gameInstance.logo) {
+          gameInstance.logo = document.createElement("div");
+          gameInstance.logo.className = "logo " + gameInstance.Module.splashScreenStyle;
+          gameInstance.logo.style.display = 'none'; //old progress
+          gameInstance.container.appendChild(gameInstance.logo);
+        }
+        if (!gameInstance.progress) {    
+          gameInstance.progress = document.createElement("div");
+          gameInstance.progress.className = "progress " + gameInstance.Module.splashScreenStyle;
+          gameInstance.progress.empty = document.createElement("div");
+          gameInstance.progress.empty.className = "empty";
+          gameInstance.progress.appendChild(gameInstance.progress.empty);
+          gameInstance.progress.full = document.createElement("div");
+          gameInstance.progress.full.className = "full";
+          gameInstance.progress.style.display = 'none'; //old progress
+          gameInstance.progress.appendChild(gameInstance.progress.full);
+          gameInstance.container.appendChild(gameInstance.progress);
+        }
+        gameInstance.progress.full.style.width = (100 * progress) + "%";
+        gameInstance.progress.empty.style.width = (100 * (1 - progress)) + "%";
+        if (progress == 1)
+          document.getElementsByClassName("spinner")[0].classList.add('hidden');
+      }
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/www.json", {onProgress: CustomProgress});
+    </script>
+  </head>
+  <body style="margin:0;background:black;overflow:hidden">
+    <canvas id="bg-canvas" width="1200px" height="676px" style="width:100%;height:100%;position:absolute;"></canvas>
+	<video id="video" style="display:none" autoplay loop controls="false" webkit-playsinline playsinline>
+		<source src="background.mp4" type="video/mp4" />
+	</video>
+    <div id="gameContainer" style="margin:auto !important;"></div>
+
+    <div class="spinner container animation-5">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+  </body>
+</html>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+if (window.navigator.userAgent.indexOf("Edge") > -1)
+{
+	alert("I recommend you to use the chrome browser.");
+}
+
+$(function() {
+  var canvas = document.getElementById('bg-canvas');
+  var ctx = canvas.getContext('2d');
+  var video = document.getElementById('video');
+
+  video.addEventListener('play', function() {
+    var $this = this; //cache
+    (function loop() {
+      if (!$this.paused && !$this.ended) {
+        ctx.drawImage($this, 0, 0);
+        
+      }
+	  setTimeout(loop, 1000 / 30); // drawing at 30fps
+    })();
+  }, 0);
+});
+</script>
+<script>
+  var canvas = document.getElementById("gameContainer");
+  var body = document.body,
+      html = document.documentElement;
+
+  var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+  canvas.style.width = (height / 9) * 16 + "px";
+  canvas.style.height = (height) + "px";
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129580654-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129580654-1');
+</script>
